@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    environment:
+      - DB_HOST=localhost 
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=db_qlkh
+    depends_on:
+      - mysql
+
+      
+  db_qlkh:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=db_qlkh
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - '3306:3306'
+    
