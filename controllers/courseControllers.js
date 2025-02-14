@@ -11,6 +11,7 @@ class courseControllers {
     }
 
     static async addCourseController(req, res){
+        // console.log("Data controller: ", req.body)
         try{
             const {course_code, id_class, start_time, end_time, staff_id} = req.body
             if(!course_code || !id_class || !start_time || !end_time || !staff_id) {

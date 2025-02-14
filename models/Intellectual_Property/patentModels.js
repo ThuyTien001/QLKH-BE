@@ -62,7 +62,7 @@ class patentModels {
             WHERE 
                     record.record_code IS NULL OR record.record_code LIKE "SC%";
         `);
-        console.log(rows);
+        // console.log(rows);
                 const formattedRows = rows.map(customer => ({
                     ...customer,
                     form: customer.form ? `${BASE_URL}/${customer.form}` : null,

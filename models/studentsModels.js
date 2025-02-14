@@ -15,8 +15,8 @@ class studentsModels {
         }
     }
     static async addStudent(student_code, participant_id, student_name, birthday, department, phone, email, address, course_id ){
-        console.log("Data: ",student_code, participant_id, student_name, birthday, department, phone, email, address, course_id )
-        console.log('course id: ', course_id);
+        // console.log("Data: ",student_code, participant_id, student_name, birthday, department, phone, email, address, course_id )
+        // console.log('course id: ', course_id);
         try{
             const sql = `INSERT INTO students (student_code, participant_id, student_name, birthday, department, phone, email, address) VALUES (?,?,?,?,?,?,?,?)`
             const [result] = await db.query(sql, [student_code, participant_id, student_name, birthday, department, phone, email, address]);

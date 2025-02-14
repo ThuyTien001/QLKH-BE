@@ -35,6 +35,39 @@ class staffModels {
             throw new Error("Database query error")
         }
     }
+    static async addStaff(staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_status){
+        try{
+            const sql =`INSERT INTO staff (staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_status)
+                        VALUES (?,?,?,?,?,?,?,?,?)`
+            const [result] = await db.query(sql, [staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_status]);
+            return{
+                success: true,
+                message: "Staff add successfully",
+                insertId: result.insertId
+            }
+        }catch(error){
+            throw new Error('Failed to add Staff')
+        }
+    }
+    static async updateStaff(staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_id){
+        try{
+            const sql = `UPDATE staff SET staff_code=?, staff_name=?, staff_position=?, staff_phone=?, staff_email=?, staff_address=?, staff_username=?, staff_password=? WHERE staff_id = ?`;
+            const [result] = await db.query(sql, [staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_id]);
+            if(result.affectedRows === 0){
+                return{
+                    success: false,
+                    message: "Staff not found or not change made",
+                }
+            }
+            return{
+                success: true,
+                message: "Staff update successfully",
+            }
+        }catch(error){
+            console.error("Error during updateStaff: ", error);
+            throw new Error(error.message || "Failed to update Staff");
+        }
+    }
 }
 
 module.exports = staffModels;

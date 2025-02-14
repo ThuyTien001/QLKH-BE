@@ -62,6 +62,52 @@ class staffController {
             })
         }
     }
+    static async addStaffContraller(req, res){
+        try{
+            const {staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_status} = req.body;
+            if(!staff_code || !staff_name){
+                return res.status(400).json({
+                    success: false,
+                    message: "Missing required fields",
+                })
+            }
+            const result = await staffModels.addStaff(staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_status)
+            return res.status(201).json({
+                success: true,
+                message: "Staff added successfully",
+                data: result,
+            })
+        }catch(error){
+            console.error("Error while adding Staff: ", error)
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error"
+            })
+        }
+    }
+    static async updateStaffController(req, res){
+        try{
+            const {staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_id} = req.body;
+            if(!staff_code || !staff_name){
+                return res.status(400).json({
+                    success: false,
+                    message: "Missing required fields"
+                });
+            }
+            const result = await staffModels.updateStaff(staff_code, staff_name, staff_position, staff_phone, staff_email, staff_address, staff_username, staff_password, staff_id);
+            return res.status(201).json({
+                success: true,
+                message: "Staff update successfully",
+                data: result,
+            })
+        }catch(error){
+            console.error("Error while update Staff: ", error);
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error"
+            })
+        }
+    }
 }
 
 

@@ -18,6 +18,7 @@ const barcodeController = require('../controllers/Intellectual_Property/barcodeC
 const copyrightController = require('../controllers/Intellectual_Property/copyrightController');
 const contractController = require('../controllers/Intellectual_Property/contractController')
 const contract = require('../config/multer-contract');
+const leadProviderController = require('../controllers/Intellectual_Property/lead_providerController');
 const appRouter = express.Router();
 
 //get
@@ -32,14 +33,19 @@ appRouter.get('/staff', staffController.getStaff);
 
 appRouter.post('/class/add', classControllers.addClassController);
 appRouter.post('/login', staffController.login);
+appRouter.post('/staff/add', staffController.addStaffContraller);
 appRouter.post('/course/add', courseController.addCourseController);
 appRouter.post('/student/add', studentControllers.addStudentController);
+appRouter.post('/student/add/file', studentControllers.addStudentFormFile);
+appRouter.post("/partner/add", partnerController.addPartnerController);
 
 
 
 //put
 appRouter.put('/course/update', courseController.updataCourseController);
 appRouter.put('/student/update', studentControllers.updateStudentController);
+appRouter.put('/staff/update', staffController.updateStaffController);
+appRouter.put('/partner/update', partnerController.updatePartnerController);
 
 // get Intellectual_Property
 appRouter.get('/styleproducts', styleProductController.getStyleProduct);
@@ -73,6 +79,8 @@ appRouter.post('/customer/add', styleProductController.addCustomerController);
 appRouter.post('/record/add', upload, recordControllers.addRecord);
 appRouter.post('/statusrecord/add', uploads_status, statusRecordController.addStatusRecord)
 appRouter.post('/contract/add', contract, contractController.addContract);
+appRouter.post('/leadprovider/add', leadProviderController.addLeadProviderController);
+
 
 
 
@@ -83,5 +91,6 @@ appRouter.put('/customer/update', styleProductController.updateCustomerControlle
 appRouter.put('/record/update',upload, recordControllers.updateRecord);
 appRouter.put('/statusrecord/update', uploads_status, statusRecordController.updateStatusRecord)
 appRouter.put('/contract/update', contract, contractController.updateContract);
+appRouter.put('/leadprovider/update', leadProviderController.updateLeadProviderController);
 
 module.exports = appRouter;

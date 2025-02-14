@@ -32,7 +32,9 @@ class courseModels {
                                     LEFT JOIN 
                                         class ON c.id_class = class.id_class
                                     LEFT JOIN 
-                                        participant as p ON s.participant_id = p.participant_id;
+                                        participant as p ON s.participant_id = p.participant_id
+                                    ORDER BY 
+                                        c.course_id DESC;
 `);
 
       // Chuyển đổi định dạng ngày tháng

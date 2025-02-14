@@ -9,6 +9,54 @@ class partnerController {
             res.status(500).json({error: 'Failed to fetch Partner'});
         }
     }
+    static async addPartnerController(req, res){
+        try{
+            const {partner_code, partner_name, partner_phone, partner_email}= req.body;
+            if(!partner_code||!partner_name || !partner_phone || !partner_email){
+                return res.status(400).json({
+                    success: false,
+                    message: "Missing required fields",
+                });
+            }
+            const result = await partnerModels.addPartner(partner_code, partner_name, partner_phone, partner_email);
+            return res.status(201).json({
+                success: true,
+                message: "Partner added successfully",
+                data: result,
+            })
+        }catch(error){
+            console.error("Error while adding Partner: ", error);
+            return{
+                success: false,
+                 message: "Internal server error"
+            }
+        }
+    }
+    static async updatePartnerController (req, res){
+        // console.log("data: ", req.body);
+        try{
+            const {partner_code, partner_name, partner_phone, partner_email, partner_id} = req.body;
+            if(!partner_code || !partner_name){
+                return res.status(400).json({
+                    success: false,
+                    message: "Missing required fields"
+                });
+            }
+
+            const result = await partnerModels.updatePartner(partner_code, partner_name, partner_phone, partner_email, partner_id);
+            return res.status(201).json({
+                success: true,
+                message: "Partner update successfully",
+                data: result,
+            })
+        }catch(error){
+            console.error("Error while update Partner: ", error);
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error"
+            })
+        }
+    }
 }
 
 module.exports = partnerController;
