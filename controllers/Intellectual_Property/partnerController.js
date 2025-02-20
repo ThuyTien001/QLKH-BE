@@ -57,6 +57,39 @@ class partnerController {
             })
         }
     }
+    static async addPartnerFormFile (req, res){
+        try{
+            const partners = req.body;
+            // console.log("data submit: ", partners)
+            if(!Array.isArray(partners) || partners.length ===0){
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid Partner data",
+                });
+            }
+            //Kiểm tra và lưu tất cả đối tác
+            for(const partner of partners){
+                const {partner_code, partner_name, partner_phone, partner_email} = partner;
+                if(!partner_code || !partner_name){
+                    return res.status(400).json({
+                        success: false,
+                        message: "Missing required fields",
+                    });
+                }
+                await partnerModels.addPartner(partner_code, partner_name, partner_phone, partner_email);
+            }
+            return res.status(201).json({
+                success: true,
+                message: "Partner added successfully",
+            });
+        }catch(error){
+            console.error("Error while adding Partner: ", error);
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error"
+            })
+        }
+    }
 }
 
 module.exports = partnerController;

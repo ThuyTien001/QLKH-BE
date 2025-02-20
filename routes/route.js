@@ -80,6 +80,9 @@ appRouter.post('/record/add', upload, recordControllers.addRecord);
 appRouter.post('/statusrecord/add', uploads_status, statusRecordController.addStatusRecord)
 appRouter.post('/contract/add', contract, contractController.addContract);
 appRouter.post('/leadprovider/add', leadProviderController.addLeadProviderController);
+appRouter.post('/customer/add/file', styleProductController.addCustomerFormFile);
+appRouter.post('/partner/add/file', partnerController.addPartnerFormFile)
+appRouter.post('/leadprovider/add/file', leadProviderController.addLeadProviderFormFile)
 
 
 

@@ -12,7 +12,7 @@ class leadProviderController {
     static async addLeadProviderController(req, res){
         try{
             const {lp_code,lp_name, lp_workplace, lp_phone} = req.body;
-            if(!lp_code || !lp_name || !lp_workplace || !lp_phone){
+            if(!lp_code || !lp_name ){
                 return res.status(400).json({
                     success: false,
                     message: "Missing required fields",
@@ -35,7 +35,7 @@ class leadProviderController {
     static async updateLeadProviderController(req, res){
         try{
             const {lp_code, lp_name, lp_workplace, lp_phone, lp_id} = req.body;
-            if(!lp_code || ! lp_name || !lp_workplace || !lp_phone){
+            if(!lp_code || ! lp_name){
                 return res.status(400).json({
                     success: false,
                     message: "Missing required fields"
@@ -49,6 +49,40 @@ class leadProviderController {
             })
         }catch(error){
             console.error("Error while update Lead provider: ", error);
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error"
+            })
+        }
+    }
+    static async addLeadProviderFormFile (req, res){
+        try{
+            const leadProviders = req.body;
+            // console.log("Data Submit: ", leadProviders);
+            if(!Array.isArray(leadProviders) || leadProviders.length === 0){
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid Lead Provider data",
+                });
+            }
+            //Kiểm tra và lưu tất cả đầu mối
+            for(const lp of leadProviders){
+                const {lp_code, lp_name, lp_workplace, lp_phone} = lp;
+                if(!lp_code || !lp_name){
+                    return res.status(400).json({
+                        success: false,
+                        message: "Missing required fields",
+                    });
+                }
+                await leadProviderModels.addLeadProvider(lp_code, lp_name, lp_workplace, lp_phone);
+            }
+            return res.status(201).json({
+                success: true,
+                message: "Lead Provider added successfully",
+            });
+
+        }catch(error){
+            console.error("Error while adding Lead Provider: ", error);
             return res.status(500).json({
                 success: false,
                 message: "Internal server error"

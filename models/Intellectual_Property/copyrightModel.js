@@ -14,7 +14,7 @@ class copyrightModel {
                                                 c.phone,
                                                 c.email,
                                                 c.address,
-                                                c.position,
+                                                
                                                 record.staff_id,
                                                 l.lp_name,
                                                 l.lp_id,
@@ -61,7 +61,9 @@ class copyrightModel {
                                                 LEFT JOIN 
                                                     staff ON staff.staff_id = record.staff_id
                                         WHERE 
-                                                record.record_code IS NULL OR record.record_code LIKE "QTG%";            
+                                                c.customer_code IS NULL OR c.customer_code LIKE "QTG%"
+                                        ORDER BY 
+                                                  c.customer_id DESC;
             `);
 
             // console.log("Data: ", rows);
@@ -108,7 +110,7 @@ class copyrightModel {
             phone: curr.phone,
             email: curr.email,
             address: curr.address,
-            position: curr.position,
+            
             partner_id: curr.partner_id,
             partner_name: curr.partner_name,
             lp_id: curr.lp_id,

@@ -61,7 +61,7 @@ class studentsControllers {
         }
     }
     static async addStudentFormFile(req, res) {
-        console.log("student: ", req.body);
+        // console.log("student: ", req.body);
 
         try {
             const students = req.body;

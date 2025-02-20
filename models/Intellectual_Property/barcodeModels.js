@@ -14,7 +14,7 @@ class barcodeModels {
                                                   c.phone,
                                                   c.email,
                                                   c.address,
-                                                  c.position,
+                                                  
                                                   record.staff_id,
                                                   l.lp_name,
                                                   l.lp_id,
@@ -61,7 +61,9 @@ class barcodeModels {
                                                   LEFT JOIN 
                                                       staff ON staff.staff_id = record.staff_id
                                           WHERE 
-                                                  record.record_code IS NULL OR record.record_code LIKE "MSMV%";            
+                                                  c.customer_code IS NULL OR c.customer_code LIKE "MSMV%"
+                                          ORDER BY 
+                                                  c.customer_id DESC;
               `);
               // Chuyển đổi định dạng ngày tháng và gắn URL cho các file
               const formattedRows = rows.map(customer => ({
@@ -99,7 +101,7 @@ class barcodeModels {
               phone: curr.phone,
               email: curr.email,
               address: curr.address,
-              position: curr.position,
+              
               partner_id: curr.partner_id,
               partner_name: curr.partner_name,
               lp_id: curr.lp_id,

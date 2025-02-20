@@ -16,7 +16,7 @@ class styleProductModels {
                                                 c.phone,
                                                 c.email,
                                                 c.address,
-                                                c.position,
+                                                
                                                 record.staff_id,
                                                 l.lp_name,
                                                 l.lp_id,
@@ -63,7 +63,9 @@ class styleProductModels {
                                                 LEFT JOIN 
                                                     staff ON staff.staff_id = record.staff_id
                                         WHERE 
-                                                record.record_code IS NULL OR record.record_code LIKE "KD%";            
+                                                c.customer_code IS NULL OR c.customer_code LIKE "KD%"
+                                        ORDER BY 
+                                                  c.customer_id DESC;
             `);
 
             // console.log("Data: ", rows);
@@ -110,7 +112,7 @@ class styleProductModels {
             phone: curr.phone,
             email: curr.email,
             address: curr.address,
-            position: curr.position,
+            
             partner_id: curr.partner_id,
             partner_name: curr.partner_name,
             lp_id: curr.lp_id,
@@ -190,25 +192,31 @@ class styleProductModels {
         throw new Error('Database query failed');
       }
     }
-    static async addCustomer (customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id, position){
-      // console.log("Data models: ", customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id, position);
+    static async addCustomer (customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id){
+      console.log("Data models: ", customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id);
       try{
-        const query = `INSERT INTO customer (customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id, position) VALUES(?,?,?,?,?,?,?,?,?,?)`;
-        const [result] = await db.query(query, [customer_code, customer_name, business_name, object_name, phone, email, address,lp_id, partner_id, position]);
+        const query = `INSERT INTO customer (customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id) VALUES(?,?,?,?,?,?,?,?,?)`;
+        const [result] = await db.query(query, [customer_code, customer_name, business_name, object_name, phone, email, address,lp_id, partner_id]);
         return{
           success: true,
           message: "Cusstomer add sucessfully",
           insertedId: result.insertId,
         };
       }catch(error){
-        throw new Error('Failed to add Customer');
+        // throw new Error('Failed to add Customer');
+        console.error("Error while adding Customer:", error);  // In lỗi chi tiết
+    return {
+        success: false,
+        message: "Internal server error",
+        error: error.message,  // Trả lỗi chi tiết về client để debug
+    };
       }
     }
-    static async updateCustomer (customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id,position, customer_id){
+    static async updateCustomer (customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id, customer_id){
             // console.log("Data Models: ", customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id, position, customer_id);
       try{
-        const query = `UPDATE customer SET customer_code = ?, customer_name =?, business_name=?, object_name=?, phone=?, email=?, address=?, lp_id=?, partner_id=?, position = ? WHERE customer_id = ?`;
-        const [result] = await db.query(query, [customer_code, customer_name, business_name, object_name, phone, email, address,lp_id, partner_id, position, customer_id ]);
+        const query = `UPDATE customer SET customer_code = ?, customer_name =?, business_name=?, object_name=?, phone=?, email=?, address=?, lp_id=?, partner_id=? WHERE customer_id = ?`;
+        const [result] = await db.query(query, [customer_code, customer_name, business_name, object_name, phone, email, address,lp_id, partner_id, customer_id ]);
         if(result.affectedRows === 0){
           return{
             success: false,
