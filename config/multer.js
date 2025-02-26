@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
 
 // Bộ lọc loại file
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|pdf|docx|txt|doc/;
+  const allowedTypes = /jpeg|jpg|png|pdf|docx|txt|doc|xlsx/;
   const ext = path.extname(file.originalname).toLowerCase();
   // console.log(`File uploaded: ${file.originalname}, extension: ${ext}`);
   if (allowedTypes.test(ext)) {

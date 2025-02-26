@@ -21,7 +21,7 @@ class styleProductController {
         try{
             const{customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id} = req.body;
             // console.log("Data Controller: ", customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id, position);
-            if(!customer_code || !customer_name || !business_name || !object_name || !phone || !email || !address || !lp_id || !partner_id){
+            if(!customer_code){
                 return res.status(400).json({
                     success: false,
                     message: "Missing required fields",

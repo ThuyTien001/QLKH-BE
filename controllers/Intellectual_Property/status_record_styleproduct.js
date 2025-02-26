@@ -18,6 +18,8 @@ class statusRecordController{
                     message: 'Missing required fields',
                 })
             }
+            const processedDateOfIssuance = date_of_issuance && date_of_issuance.trim() !== '' ? date_of_issuance : null;
+            const processedExpirationDate = expiration_date && expiration_date.trim() !== '' ? expiration_date : null;
 
             //Gọi model để thêm trạng thái
             const result = await statusRecordModal.addStatusRecord(
@@ -26,9 +28,9 @@ class statusRecordController{
                 form_code,
                 application_date,
                 patent_code, 
-                date_of_issuance,
+                processedDateOfIssuance,
                 patent ? path.basename(patent):null,
-                expiration_date
+                processedExpirationDate
             );
 
             return res.status(201).json({
@@ -49,7 +51,7 @@ class statusRecordController{
         try{
             const {status_id, status_name, form_code, application_date, patent_code, date_of_issuance, expiration_date} = req.body;
             // console.log("data update status controller:  ", status_id, status_name, form_code, application_date, patent_code, date_of_issuance, expiration_date)
-            if(!status_id || !status_name || !form_code || !application_date || !patent_code || !date_of_issuance || !expiration_date){
+            if(!status_id || !status_name){
                 return res.status(400).json({
                     success: false,
                     message: "Missing required fields"

@@ -15,7 +15,7 @@ class studentsControllers {
             // console.log("Data controller: ", student_code, participant_id, student_name, birthday, department, phone, email, address, course_id)
             // console.log("student name: ", student_name);
             // console.log('participant id', participant_id);  
-            if(!student_code || !participant_id || !student_name || !birthday || !department || !phone || !email || !address || !course_id){
+            if(!student_code ){
                 return res.status(400).json({
                     success: false,
                     message: "Missing required fields",
@@ -39,7 +39,7 @@ class studentsControllers {
         try{
             const {student_id, student_code, participant_id, student_name, birthday, department, phone, email, address} = req.body;
             // console.log("Data Controller: ",student_id, student_code, participant_id, student_name, birthday, department, phone, email, address);
-            if(!student_code || !participant_id || ! student_name || !birthday || !department || !phone || !email || !address){
+            if(!student_code ){
                 return res.status(400).json({
                     success: false,
                     message: "Missing required fields"
@@ -76,7 +76,7 @@ class studentsControllers {
             for (const student of students) {
                 const { student_code, participant_id, student_name, birthday, department, phone, email, address, course_id } = student;
                 
-                if (!student_code || !participant_id || !student_name || !birthday || !department || !phone || !email || !address || !course_id) {
+                if (!student_code ) {
                     return res.status(400).json({
                         success: false,
                         message: "Missing required fields",

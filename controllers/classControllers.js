@@ -11,7 +11,7 @@ class classControllers {
     static async addClassController(req, res) {
         try {
             const { class_name, timelimit } = req.body;
-            if (!class_name || !timelimit) {
+            if (!class_name) {
                 return res.status(400).json({
                     success: false,
                     message: "Missing required fields",
