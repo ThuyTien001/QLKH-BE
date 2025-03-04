@@ -19,10 +19,9 @@ class courseModels {
                                         s.phone,
                                         s.email,
                                         s.address,
+                                        s.participant,
                                         c.id_class,
-                                        c.staff_id,
-                                        p.participant_id,
-                                        p.participant_name
+                                        c.staff_id
                                     FROM 
                                         course AS c
                                     LEFT JOIN 
@@ -31,8 +30,6 @@ class courseModels {
                                         students AS s ON a.student_id = s.student_id
                                     LEFT JOIN 
                                         class ON c.id_class = class.id_class
-                                    LEFT JOIN 
-                                        participant as p ON s.participant_id = p.participant_id
                                     ORDER BY 
                                         c.course_id DESC;
 `);
@@ -68,8 +65,7 @@ class courseModels {
                 phone: curr.phone,
                 email: curr.email,
                 address: curr.address,
-                participant_id: curr.participant_id,
-                participant_name: curr.participant_name,
+                participant: curr.participant,
               }
             ],
           });
@@ -83,8 +79,7 @@ class courseModels {
             phone: curr.phone,
             email: curr.email,
             address: curr.address,
-            participant_id: curr.participant_id,
-            participant_name: curr.participant_name,
+            participant: curr.participant,
           });
         }
         return acc;

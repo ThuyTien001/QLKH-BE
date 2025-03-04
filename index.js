@@ -10,7 +10,7 @@ const cors = require('cors');
 // app.use((cros));
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Chỉ cho phép frontend tại localhost:5173
+  origin: '*', // Chỉ cho phép frontend tại localhost:5173
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Cho phép các method cụ thể
   credentials: true, // Cho phép gửi cookie nếu cần
 }));
@@ -53,6 +53,6 @@ app.get('/uploads_status/:fileName', (req, res) => {
 
 app.use('/api', appRouter)
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });

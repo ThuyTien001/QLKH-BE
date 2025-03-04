@@ -14,12 +14,12 @@ class studentsModels {
             throw new Error('Databasse query failed');
         }
     }
-    static async addStudent(student_code, participant_id, student_name, birthday, department, phone, email, address, course_id ){
+    static async addStudent(student_code, participant, student_name, birthday, department, phone, email, address, course_id ){
         // console.log("Data: ",student_code, participant_id, student_name, birthday, department, phone, email, address, course_id )
         // console.log('course id: ', course_id);
         try{
-            const sql = `INSERT INTO students (student_code, participant_id, student_name, birthday, department, phone, email, address) VALUES (?,?,?,?,?,?,?,?)`
-            const [result] = await db.query(sql, [student_code, participant_id, student_name, birthday, department, phone, email, address]);
+            const sql = `INSERT INTO students (student_code, participant, student_name, birthday, department, phone, email, address) VALUES (?,?,?,?,?,?,?,?)`
+            const [result] = await db.query(sql, [student_code, participant, student_name, birthday, department, phone, email, address]);
             
             const studentId = result.insertId
             const query = `INSERT INTO  attend (student_id, course_id) VALUES (?, ?)`;
@@ -34,11 +34,11 @@ class studentsModels {
             throw new Error('Failed to add Course')
         }
     }
-    static async updateStudent( student_code, participant_id, student_name, birthday, department, phone, email, address, student_id){
+    static async updateStudent( student_code, participant, student_name, birthday, department, phone, email, address, student_id){
         // console.log("Data Models: ", student_code, participant_id, student_name, birthday, department, phone, email, address, student_id)
         try{
-            const sql = `UPDATE students SET student_code = ? ,participant_id = ?, student_name = ?, birthday = ?, department = ?, phone = ?, email = ?, address = ? WHERE student_id = ?`;
-            const [result] = await db.query(sql, [student_code, participant_id, student_name, birthday, department, phone, email, address, student_id]);
+            const sql = `UPDATE students SET student_code = ? ,participant = ?, student_name = ?, birthday = ?, department = ?, phone = ?, email = ?, address = ? WHERE student_id = ?`;
+            const [result] = await db.query(sql, [student_code, participant, student_name, birthday, department, phone, email, address, student_id]);
             if(result.affectedRows === 0){
                 return{
                     success: false,

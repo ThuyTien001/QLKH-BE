@@ -11,7 +11,7 @@ class studentsControllers {
     static async addStudentController(req, res){
         // console.log("student: ", req.body)
         try{
-            const {student_code, participant_id, student_name, birthday, department, phone, email, address, course_id} = req.body;
+            const {student_code, participant, student_name, birthday, department, phone, email, address, course_id} = req.body;
             // console.log("Data controller: ", student_code, participant_id, student_name, birthday, department, phone, email, address, course_id)
             // console.log("student name: ", student_name);
             // console.log('participant id', participant_id);  
@@ -21,7 +21,7 @@ class studentsControllers {
                     message: "Missing required fields",
                 });
             }
-            const result = await studentModels.addStudent(student_code, participant_id, student_name, birthday, department, phone, email, address, course_id);
+            const result = await studentModels.addStudent(student_code, participant, student_name, birthday, department, phone, email, address, course_id);
             return res.status(201).json({
                 success: true,
                 message: "Student added successfully",
@@ -37,7 +37,7 @@ class studentsControllers {
     }
     static async updateStudentController(req, res){
         try{
-            const {student_id, student_code, participant_id, student_name, birthday, department, phone, email, address} = req.body;
+            const {student_id, student_code, participant, student_name, birthday, department, phone, email, address} = req.body;
             // console.log("Data Controller: ",student_id, student_code, participant_id, student_name, birthday, department, phone, email, address);
             if(!student_code ){
                 return res.status(400).json({
@@ -46,7 +46,7 @@ class studentsControllers {
                 });
             }
 
-            const result = await studentModels.updateStudent(student_code, participant_id, student_name, birthday, department, phone, email, address, student_id);
+            const result = await studentModels.updateStudent(student_code, participant, student_name, birthday, department, phone, email, address, student_id);
             return res.status(201).json({
                 success: true,
                 message: "Student update successfully",
@@ -65,6 +65,7 @@ class studentsControllers {
 
         try {
             const students = req.body;
+            console.log("students: ", students)
             if (!Array.isArray(students) || students.length === 0) {
                 return res.status(400).json({
                     success: false,
@@ -74,7 +75,7 @@ class studentsControllers {
     
             // Kiểm tra và lưu tất cả sinh viên
             for (const student of students) {
-                const { student_code, participant_id, student_name, birthday, department, phone, email, address, course_id } = student;
+                const { student_code, participant, student_name, birthday, department, phone, email, address, course_id } = student;
                 
                 if (!student_code ) {
                     return res.status(400).json({
@@ -84,7 +85,7 @@ class studentsControllers {
                 }
     
                 // Lưu vào database
-                await studentModels.addStudent(student_code, participant_id, student_name, birthday, department, phone, email, address, course_id);
+                await studentModels.addStudent(student_code, participant, student_name, birthday, department, phone, email, address, course_id);
             }
     
             return res.status(201).json({
