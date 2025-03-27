@@ -54,7 +54,7 @@ class styleProductController {
                 });
             }
             const result = await styleProductModels.updateCustomer(customer_code, customer_name, business_name, object_name, phone, email, address, lp_id, partner_id, customer_id);
-            console.log('Result: ', result);
+            // console.log('Result: ', result);
             return res.status(201).json({
                 success: true,
                 message: "Customer update successfully",
@@ -106,6 +106,39 @@ class styleProductController {
             return res.status(500).json({
                 success: false,
                 message: "Internal server error",
+            })
+        }
+    }
+    static async getCustomerPotential(req, res){
+        try{
+            const customer = await styleProductModels.getCustomerPotential();
+            res.status(200).json({data: customer});
+        }catch(err){
+            res.status(500).json({error: 'Failed to fetch Customer'});
+        }
+    }
+    static async updateStatusCustomer(req, res){
+        try{
+            const {customer_status, customer_id} = req.body;
+            // console.log("data controller: ", customer_id, customer_status);
+            if(!customer_status || !customer_id){
+                return res.status(400).json({
+                    success: false,
+                    message: "Missing required fields"
+                });
+            }
+            const result = await styleProductModels.updateStatusCustomer(customer_status, customer_id);
+            // console.log("result controller: ", result)
+            return res.status(201).json({
+                success: true,
+                message: "Customer update successfully",
+                data: result,
+            })
+        }catch(err){
+            console.error("Error while updating customer: ", err);
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error"
             })
         }
     }

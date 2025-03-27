@@ -59,6 +59,7 @@ appRouter.get('/barcode', barcodeController.getBarcode)
 appRouter.get("/copyright", copyrightController.getCopyright)
 
 appRouter.get('/status', styleProductController.getStatus);
+appRouter.get('/customer_potential', styleProductController.getCustomerPotential)
 
 
 //post Intellectial_Property
@@ -95,5 +96,6 @@ appRouter.put('/record/update',upload, recordControllers.updateRecord);
 appRouter.put('/statusrecord/update', uploads_status, statusRecordController.updateStatusRecord)
 appRouter.put('/contract/update', contract, contractController.updateContract);
 appRouter.put('/leadprovider/update', leadProviderController.updateLeadProviderController);
+appRouter.put('/customer/update/status', styleProductController.updateStatusCustomer);
 
 module.exports = appRouter;

@@ -14,7 +14,7 @@ class patentModels {
                     c.phone,
                     c.email,
                     c.address,
-                    
+                    c.customer_status,
                     record.staff_id,
                     l.lp_name,
                     l.lp_id,
@@ -97,7 +97,7 @@ class patentModels {
                           phone: curr.phone,
                           email: curr.email,
                           address: curr.address,
-                          
+                          customer_status: curr.customer_status,
                           partner_id: curr.partner_id,
                           partner_name: curr.partner_name,
                           lp_id: curr.lp_id,

@@ -1,3 +1,4 @@
+const { error } = require('console');
 const db = require('../../config/index');
 const dayjs = require('dayjs');
 const path = require('path');
@@ -16,7 +17,7 @@ class styleProductModels {
                                                 c.phone,
                                                 c.email,
                                                 c.address,
-                                                
+                                                c.customer_status,
                                                 record.staff_id,
                                                 l.lp_name,
                                                 l.lp_id,
@@ -112,7 +113,7 @@ class styleProductModels {
             phone: curr.phone,
             email: curr.email,
             address: curr.address,
-            
+            customer_status: curr.customer_status,
             partner_id: curr.partner_id,
             partner_name: curr.partner_name,
             lp_id: curr.lp_id,
@@ -238,6 +239,34 @@ class styleProductModels {
         return rows;
       }catch(error){
         throw new Error('Database query failed');
+      }
+    }
+    static async getCustomerPotential(){
+      try{
+        const sql = `SELECT * FROM customer WHERE customer_status = "Khách hàng tiềm năng"`;
+        const [rows] = await db.query(sql);
+        return rows;
+      }catch(error){
+        throw new Error ("Database query failed");
+      }
+    }
+    static async updateStatusCustomer(customer_status, customer_id){
+      try{
+        // console.log("Data model: ", customer_status, customer_id);
+        const query = `UPDATE customer SET customer_status = ? where customer_id =?`;
+        const [result] = await db.query(query, [customer_status, customer_id]);
+        if(result.affectedRows ===0){
+          return{
+            success: false,
+            message: "Customer not found or not change made",
+          }
+        }
+        return{
+          success: true,
+          message: "Customer update successfully"
+        }
+      }catch(error){
+        throw new error("Failed to update Customer");
       }
     }
 }
