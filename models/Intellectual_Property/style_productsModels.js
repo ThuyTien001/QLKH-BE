@@ -46,7 +46,8 @@ class styleProductModels {
                                                 ct.contract_name,
                                                 ct.acceptance,
                                                 ct.settlement,
-                                                ct.bill
+                                                ct.bill,
+                                                ct.contract
                                         FROM 
                                                 customer as c
                                                 LEFT JOIN 
@@ -171,7 +172,8 @@ class styleProductModels {
             contract_name: curr.contract_name,
             acceptance: curr.acceptance,
             settlement: curr.settlement,
-            bill: curr.bill
+            bill: curr.bill,
+            contract: curr.contract,
           });
         }
   

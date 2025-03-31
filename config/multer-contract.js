@@ -39,5 +39,6 @@ const contract = multer({
 module.exports = contract.fields([
     {name: 'acceptance', maxCount: 1},
     {name: 'settlement', maxCount: 1},
-    {name: 'bill', maxCount: 1}
+    {name: 'bill', maxCount: 1},
+    {name: 'contract', maxCount:1}
 ])

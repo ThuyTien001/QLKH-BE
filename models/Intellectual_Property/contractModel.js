@@ -1,18 +1,19 @@
 const db = require('../../config/index');
 
 class contractModels {
-    static async addContract(contract_code, contrac_name, acceptance, settlement, bill, record_id){
+    static async addContract(contract_code, contrac_name, acceptance, settlement, bill, record_id, contract){
         try{
             const sql = `INSERT INTO contract 
-                            (contract_code, contract_name, acceptance, settlement, bill, record_id)
-                            VALUES (?,?,?,?,?,?)`;
+                            (contract_code, contract_name, acceptance, settlement, bill, record_id, contract)
+                            VALUES (?,?,?,?,?,?,?)`;
             const [result] = await db.query(sql, [
                 contract_code,
                 contrac_name,
                 acceptance,
                 settlement,
                 bill,
-                record_id
+                record_id,
+                contract
             ]);
             return{
                 success: true,
@@ -31,7 +32,7 @@ class contractModels {
     static async updateContract (data){
         try{
             // console.log("models: ", data);
-            const sql = `UPDATE contract SET contract_code=?, contract_name=?,acceptance=?, settlement=?, bill=? WHERE contract_id=?`;
+            const sql = `UPDATE contract SET contract_code=?, contract_name=?,acceptance=?, settlement=?, bill=?, contract =? WHERE contract_id=?`;
             const [result] = await db.query(sql, [
                 data.contract_code,
                 data.contract_name,
@@ -39,6 +40,7 @@ class contractModels {
                 data.settlement,
                 data.bill,
                 data.contract_id,
+                data.contract,
             ]);
             if(result.affectedRows === 0){
                 return {

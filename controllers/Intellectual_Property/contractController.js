@@ -3,10 +3,13 @@ const path = require('path');
 class contractController {
     static async addContract(req, res) {
         try{
+            console.log("Received data:", req.body);
+            console.log("Received files:", req.files);
             const {contract_code, contract_name, record_id} = req.body;
             const acceptance = req.files?.acceptance?.[0]?.path || null;
             const settlement = req.files?.settlement?.[0]?.path || null;
             const bill = req.files?.bill?.[0]?.path || null;
+            const contract = req.files?.contract?.[0]?.path || null;
 
             if (!contract_code) {
                 return res.status(400).json({
@@ -21,6 +24,7 @@ class contractController {
                 settlement ? path.basename(settlement) : null,
                 bill ? path.basename(bill) : null,
                 record_id,
+                contract ? path.basename(contract):null,
             );
             return res.status(201).json({
                 success: true,
@@ -28,7 +32,7 @@ class contractController {
                 insertId: result.insertId,
             });
         }catch(error){
-            console.error('Error adding contract: ', error.message);
+            console.error('Error adding contract: ', error);
             return res.status(500).json({
                 success: false,
                 message: "Internal Server Error",
@@ -56,15 +60,17 @@ class contractController {
             const acceptance = req.files?.acceptance?.[0]?.path || null;
             const settlement = req.files?.settlement?.[0]?.path || null;
             const bill = req.files?.bill?.[0]?.path || null;
+            const contract = req.files?.contract?.[0]?.path || null;
             const updateData = {
                 contract_code, 
                 contract_name,
                 acceptance: acceptance ? path.basename(acceptance) : existingContract.acceptance,
                 settlement: settlement ? path.basename(settlement) : existingContract.settlement, 
                 bill: bill ? path.basename(bill) : existingContract.bill,
-                contract_id
+                contract_id,
+                contract: contract ? path.basename(contract) : existingContract.contract,
             };
-            console.log("controller: ", updateData);
+            // console.log("controller: ", updateData);
             const result = await contractModels.updateContract(updateData);
             return res.status(200).json({
                 success: true,
