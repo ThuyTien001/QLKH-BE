@@ -20,3 +20,31 @@ connection.connect((err) => {
 });
 
 module.exports = connection;
+
+// require('dotenv').config();
+// const mysql = require('mysql2/promise');
+// const url = require('url');
+
+// const dbUrl = process.env.JAWSDB_URL;
+// if (!dbUrl) {
+//     console.error('JAWSDB_URL không tồn tại!');
+//     process.exit(1);
+// }
+
+// const params = url.parse(dbUrl);
+// const [user, password] = params.auth.split(':');
+// const host = params.hostname;
+// const database = params.pathname.replace('/', '');
+
+// const pool = mysql.createPool({
+//     host,
+//     user,
+//     password,
+//     database,
+//     waitForConnections: true,
+//     connectionLimit: 10,
+//     queueLimit: 0,
+// });
+
+// module.exports = pool;
+

@@ -81,7 +81,7 @@ class RecordController {
         record_id,
 
       }
-      // console.log("controler: ", updateData)
+      console.log("controler: ", updateData)
       const result = await RecordModel.updateRecord(updateData);
       return res.status(200).json({
         success: true,
