@@ -10,7 +10,7 @@ const cors = require('cors');
 // app.use((cros));
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost', 'http://dichvukhcn.id.vn', 'http://127.0.0.1'], // Chỉ cho phép frontend tại localhost:5173
+  origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost', 'http://dichvukhcn.id.vn', 'http://127.0.0.1', 'https://qlkh.vercel.app'], // Chỉ cho phép frontend tại localhost:5173
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Cho phép các method cụ thể
   credentials: true, // Cho phép gửi cookie nếu cần
 }));
